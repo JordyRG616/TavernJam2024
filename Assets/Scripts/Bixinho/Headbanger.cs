@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Headbanger : BixinhoBase
 {
-    [SerializeField] private int fruitAmount;
+    [SerializeField] private List<int> fruitsPerLevel;
     [SerializeField] private float retreatDistance;
     [Space]
     [SerializeField] private float chargeSpeed;
     [SerializeField] private float retreatSpeed;
+
     private Bonsai bonsai;
+    private int fruitAmount;
 
 
     protected override void Start()
@@ -17,6 +19,7 @@ public class Headbanger : BixinhoBase
         base.Start();
 
         bonsai = GameMaster.GetManager<Bonsai>();
+        fruitAmount = fruitsPerLevel[0];
     }
 
     protected override void Activate()
@@ -24,6 +27,13 @@ public class Headbanger : BixinhoBase
         // Muda a velocidade máxima do bixinho durante a investida.
         NavigationAgent.speed = chargeSpeed;
         NavigationAgent.SetDestination(bonsai.transform.position);
+    }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+
+        fruitAmount = fruitsPerLevel[Level];
     }
 
     private void OnTriggerEnter(Collider other)

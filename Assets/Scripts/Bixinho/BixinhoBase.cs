@@ -6,6 +6,11 @@ using UnityEngine;
 public abstract class BixinhoBase : MonoBehaviour
 {
     [SerializeField] protected float activationInterval;
+    [field:SerializeField] public BixinhoType type { get; protected set; }
+
+    public int Level { get; protected set; }
+    protected int maxLevel;
+    public bool IsMaxLevel => Level == maxLevel;
 
     protected NavMeshAgent NavigationAgent { get; private set; }
 
@@ -41,8 +46,17 @@ public abstract class BixinhoBase : MonoBehaviour
         }
     }
 
+    public virtual void LevelUp()
+    {
+        if (Level == maxLevel) return;
+
+        Level++;
+    }
+
     /// <summary>
     /// A ação que o bixinho vai realizar sempre que for ativado.
     /// </summary>
     protected abstract void Activate();
 }
+
+public enum BixinhoType { Gatherer, Headbanger, Pooper}

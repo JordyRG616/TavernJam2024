@@ -11,13 +11,22 @@ public abstract class Fruit : MonoBehaviour
     public Signal<Fruit> OnDespawn;
     [Space]
     [SerializeField] private int fruitValue;
-    
-    protected Rigidbody body;
+    [SerializeField] private float decayTime;
 
+    protected Rigidbody body;
+    protected WaitForSeconds waitToDecay;
 
     protected virtual void Start()
     {
         body = GetComponent<Rigidbody>();
+        waitToDecay = new WaitForSeconds(decayTime);
+    }
+
+    private IEnumerator Decay()
+    {
+        yield return waitToDecay;
+
+        RemoveFruit(false);
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -25,6 +34,7 @@ public abstract class Fruit : MonoBehaviour
         // Para a fruta assim que ela toca no chão.
         body.Sleep();
         OnGroundHit.Fire();
+        StartCoroutine(Decay());
     }
 
     /// <summary>
@@ -39,6 +49,7 @@ public abstract class Fruit : MonoBehaviour
             GameMaster.GetManager<InventoryManager>().GainFruits(fruitValue);
         }
 
+        StopAllCoroutines();
         OnDespawn.Fire(this);
         body.WakeUp();
     }

@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class Gatherer : BixinhoBase
 {
+    [SerializeField] private List<float> speedByLevel;
     private Fruit currentFruitTarget;
 
+
+    protected override void Start()
+    {
+        base.Start();
+
+        NavigationAgent.speed = speedByLevel[0];
+    }
 
     protected override IEnumerator ManageActivation()
     {
@@ -28,6 +36,13 @@ public class Gatherer : BixinhoBase
         NavigationAgent.SetDestination(position);
     }
 
+    public override void LevelUp()
+    {
+        base.LevelUp();
+
+        NavigationAgent.speed = speedByLevel[Level];
+    }
+
     /// <summary>
     /// Verifica se existe alguma fruta no chão e, caso verdadeiro, escolhe uma como alvo.
     /// </summary>
@@ -46,9 +61,9 @@ public class Gatherer : BixinhoBase
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.attachedRigidbody.TryGetComponent<Fruit>(out var fruit))
+        if (other.attachedRigidbody.TryGetComponent<Fruit>(out var fruit) && activated)
         {
             // Caso a fruta encontrada não seja a fruta alvo, retorne.
             if (fruit != currentFruitTarget) return;

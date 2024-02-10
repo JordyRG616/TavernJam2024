@@ -11,7 +11,7 @@ public class Bonsai : ManagerBehaviour
     public Signal<int> OnLevelUp;
     [Space]
 
-    [SerializeField] private Fruit fruitModel;
+    [SerializeField] private List<Fruit> fruitsByLevel;
     [SerializeField] private Transform fruitYeetPoint;
     [SerializeField] private Vector2 fruitYeetForceRange;
     [Space]
@@ -32,7 +32,13 @@ public class Bonsai : ManagerBehaviour
     /// </summary>
     private Queue<Fruit> inactiveFruits = new Queue<Fruit>();
 
+    /// <summary>
+    /// Pool de possível frutas para se spawnar.
+    /// </summary>
+    private List<Fruit> possibleFruits = new List<Fruit>();
+
     public int Level { get; private set; } = 0;
+    private int maxLevel = 3;
     private int currentFertilizationRequired;
     private int _fertilization;
     public int CurrentFertilization
@@ -71,6 +77,7 @@ public class Bonsai : ManagerBehaviour
         currentSpawnInterval = spawnInterval;
         currentFertilizationRequired = initialFertilizationRequired;
         waitSpawnInterval = new WaitForSeconds(currentSpawnInterval);
+        possibleFruits.Add(fruitsByLevel[0]);
 
         StartCoroutine(ManageFruitSpawn());
     }
@@ -114,7 +121,8 @@ public class Bonsai : ManagerBehaviour
             // caso contrário.
             if (inactiveFruits.Count == 0)
             {
-                fruit = Instantiate(fruitModel, fruitYeetPoint.position, Quaternion.identity);
+                var model = possibleFruits[Random.Range(0, possibleFruits.Count)];
+                fruit = Instantiate(model, fruitYeetPoint.position, Quaternion.identity);
                 fruit.OnGroundHit += () => FruitsOnTheGround.Add(fruit);
                 fruit.OnDespawn += ReturnFruit;
             }
@@ -166,6 +174,7 @@ public class Bonsai : ManagerBehaviour
 
         OnLevelUp.Fire(Level);
 
-        // IMPLEMENTAR ESCALONAMENTO DO BONSAI.
+        if (Level == maxLevel) return;
+        possibleFruits.Add(fruitsByLevel[Level]);
     }
 }

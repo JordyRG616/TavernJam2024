@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pooper : BixinhoBase
 {
+    [SerializeField] private List<float> intervalByLevel;
     [SerializeField] private int fertilizationAmount;
     [SerializeField] private float poopDuration = 1f;
     private Bonsai bonsai;
@@ -15,6 +16,7 @@ public class Pooper : BixinhoBase
         base.Start();
 
         bonsai = GameMaster.GetManager<Bonsai>();
+        waitActivationInterval = new WaitForSeconds(intervalByLevel[0]);
         waitForPoopDuration = new WaitForSeconds(poopDuration);
         StartCoroutine(HandleMovement());
     }
@@ -22,6 +24,13 @@ public class Pooper : BixinhoBase
     protected override void Activate()
     {
         StartCoroutine(HandleActivation());
+    }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+
+        waitActivationInterval = new WaitForSeconds(intervalByLevel[Level]);
     }
 
     private IEnumerator HandleActivation()
