@@ -16,10 +16,12 @@ public abstract class BixinhoBase : MonoBehaviour
 
     protected bool activated;
     protected WaitForSeconds waitActivationInterval;
-
+    
 
     protected virtual void Start()
     {
+        GameMaster.GetManager<RanchManager>().RegisterBixinho(this);
+
         NavigationAgent = GetComponent<NavMeshAgent>();
 
         waitActivationInterval = new WaitForSeconds(activationInterval);
