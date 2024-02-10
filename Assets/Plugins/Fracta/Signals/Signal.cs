@@ -19,6 +19,10 @@ public class Signal<T> : ISignal
         callback?.Invoke(value);
     }
 
+    /// <summary>
+    /// ESTA FUNÇÃO NÃO ESTÁ IMPLEMENTADA!!
+    /// </summary>
+    /// <param name="delay"></param>
     public void FireDelayed(T value, float delay)
     {
         //! IMPLEMENTAÇÃO DEPENDE DE ASYNC
@@ -72,6 +76,10 @@ public class Signal : ISignal
         callback?.Invoke();
     }
 
+    /// <summary>
+    /// ESTA FUNÇÃO NÃO ESTÁ IMPLEMENTADA!!
+    /// </summary>
+    /// <param name="delay"></param>
     public void FireDelayed(float delay)
     {
         //! IMPLEMENTAÇÃO DEPENDE DE ASYNC
