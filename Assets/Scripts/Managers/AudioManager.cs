@@ -27,6 +27,7 @@ public class AudioManager : ManagerBehaviour
 
     private void Start()
     {
+        musicChannel.volume = 0;
         PlayMusic = true;
     }
 
@@ -66,7 +67,7 @@ public class AudioChannel
         get => _volume;
         set
         {
-            _volume = volume;
+            _volume = value;
             source.volume = _volume;
         }
     }

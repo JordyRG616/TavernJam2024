@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RanchManager : ManagerBehaviour
 {
-    public static Dictionary<BixinhoType, List<BixinhoBase>> BixinhosByType { get; private set; } = new Dictionary<BixinhoType, List<BixinhoBase>>();
+    [SerializeField] private List<BixinhoBase> prefabs;
 
+    public static Dictionary<BixinhoType, List<BixinhoBase>> BixinhosByType { get; private set; } = new Dictionary<BixinhoType, List<BixinhoBase>>();
+    
 
     public void RegisterBixinho(BixinhoBase bixinho)
     {
@@ -29,7 +31,14 @@ public class RanchManager : ManagerBehaviour
 
     public void UpgradeRandomBixinho(BixinhoType type)
     {
+        var model = prefabs.Find(x => x.type == type);
+        model.LevelUp();
+
+        if (!BixinhosByType.ContainsKey(type)) return;
+
         var list = BixinhosByType[type].FindAll(x => x.IsMaxLevel == false);
+
+        if (list.Count == 0) return;
 
         var rdm = Random.Range(0, list.Count);
         var bixinho = list[rdm];

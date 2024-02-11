@@ -12,6 +12,7 @@ public class Gatherer : BixinhoBase
     [SerializeField] private Animator animator;
     private Fruit currentFruitTarget;
 
+    public float teste = 0;
 
     protected override void Start()
     {
