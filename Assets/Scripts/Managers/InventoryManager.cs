@@ -7,10 +7,18 @@ public class InventoryManager : ManagerBehaviour
     [Header("Signals")]
     public Signal<int> OnFruitsGained;
     public Signal<int> OnFruitsSpended;
+    
+    [Header("Gold Parameters")]
+    public int inicialValue;
 
     [SerializeField] private int initialFruitAmount;
 
     public int FruitAmount { get; private set; }
+
+    void Start()
+    {
+        FruitAmount = inicialValue;
+    }
 
 
     private void Start()
