@@ -195,7 +195,7 @@ MonoBehaviour:
   spawnInterval: 9
   spawnIntervalLimit: 0.1
   initialFertilizationRequired: 5
-  finalFertilizationRequired: 0
+  finalFertilizationRequired: 150
 --- !u!114 &7525070940570272454
 MonoBehaviour:
   m_ObjectHideFlags: 0

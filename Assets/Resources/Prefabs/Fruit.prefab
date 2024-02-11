@@ -179,4 +179,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitValue: 10
-  decayTime: 6
+  decayTime: 12
