@@ -9,6 +9,10 @@ public class Bonsai : ManagerBehaviour
     public Signal<float> OnFertilization;
     [Tooltip("Sinal disparado quando o bonsai upa de level. O parametro se refere ao level atual do bonsai (depois de upar)")]
     public Signal<int> OnLevelUp;
+    [Tooltip("Sinal disparado quando o bonsai chaga no nível máximo. Não passa parametros")]
+    public Signal OnFinalPhaseEntered;
+    [Tooltip("Sinal disparado quando o jogador vence o jogo. Não passa parametros")]
+    public Signal OnVictory;
     [Space]
 
     [SerializeField] private List<Fruit> fruitsByLevel;
@@ -21,7 +25,8 @@ public class Bonsai : ManagerBehaviour
     [Space]
 
     [SerializeField] private int initialFertilizationRequired;
-    
+    [SerializeField] private int finalFertilizationRequired;
+
     /// <summary>
     /// Lista de frutas no chão que não estão no processo de ser coletadas por um cãozinho.
     /// </summary>
@@ -46,17 +51,31 @@ public class Bonsai : ManagerBehaviour
         get => _fertilization;
         set
         {
-            _fertilization = Mathf.Clamp(value, 0, currentFertilizationRequired);
-
-            OnFertilization.Fire(_fertilization / (float)currentFertilizationRequired);
-
-            if (_fertilization == currentFertilizationRequired)
+            if (!onFinalPhase)
             {
-                LevelUp();
+                _fertilization = Mathf.Clamp(value, 0, currentFertilizationRequired);
+
+                OnFertilization.Fire(_fertilization / (float)currentFertilizationRequired);
+
+                if (_fertilization == currentFertilizationRequired)
+                {
+                    LevelUp();
+                }
+            } else
+            {
+                finalFertilization = value;
+
+                OnFertilization.Fire(finalFertilization / (float)finalFertilizationRequired);
+
+                if (finalFertilization >= finalFertilizationRequired)
+                {
+                    Victory();
+                }
             }
         }
     }
 
+    private int finalFertilization;
 
     private float _spawnInterval;
     private float currentSpawnInterval
@@ -68,6 +87,7 @@ public class Bonsai : ManagerBehaviour
         }
     }
 
+    private bool onFinalPhase;
     private bool active = true;
     private WaitForSeconds waitSpawnInterval;
 
@@ -168,13 +188,27 @@ public class Bonsai : ManagerBehaviour
     /// </summary>
     private void LevelUp()
     {
+        if (Level == maxLevel) return;
+
         Level++;
         CurrentFertilization = 0;
         currentFertilizationRequired += currentFertilizationRequired - 1;
 
         OnLevelUp.Fire(Level);
 
-        if (Level == maxLevel) return;
+        if (Level == maxLevel)
+        {
+            onFinalPhase = true;
+            OnFinalPhaseEntered.Fire();
+            return;
+        }
         possibleFruits.Add(fruitsByLevel[Level]);
+    }
+
+    private void Victory()
+    {
+        OnVictory.Fire();
+
+        // IMPLEMENTAR FIM DE JOGO AQUI
     }
 }

@@ -8,8 +8,15 @@ public class InventoryManager : ManagerBehaviour
     public Signal<int> OnFruitsGained;
     public Signal<int> OnFruitsSpended;
 
+    [SerializeField] private int initialFruitAmount;
+
     public int FruitAmount { get; private set; }
 
+
+    private void Start()
+    {
+        FruitAmount = initialFruitAmount;
+    }
 
     public bool HasEnoughFruits(int amount)
     {

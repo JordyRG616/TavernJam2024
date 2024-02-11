@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Gatherer : BixinhoBase
 {
+    [Header("Gatherer Signals")]
+    public Signal OnFruitSpotted;
+    public Signal OnFruitCollected;
+
     [SerializeField] private List<float> speedByLevel;
+    [SerializeField] private Animator animator;
     private Fruit currentFruitTarget;
 
 
@@ -34,6 +39,7 @@ public class Gatherer : BixinhoBase
         // Define como destino a posição da fruta-alvo.
         var position = currentFruitTarget.transform.position;
         NavigationAgent.SetDestination(position);
+        animator.SetBool("Walking", true);
     }
 
     public override void LevelUp()
@@ -57,8 +63,19 @@ public class Gatherer : BixinhoBase
         {
             currentFruitTarget = fruits[Random.Range(0, fruits.Count)];
             Bonsai.FruitsOnTheGround.Remove(currentFruitTarget);
+            currentFruitTarget.OnDespawn += RemoveCurrentTarget;
+            OnFruitSpotted.Fire();
             return true;
         }
+    }
+
+    private void RemoveCurrentTarget(Fruit fruit)
+    {
+        Debug.Log(currentFruitTarget);
+        currentFruitTarget.OnDespawn -= RemoveCurrentTarget;
+        activated = false;
+        NavigationAgent.SetDestination(transform.position);
+        animator.SetBool("Walking", false);
     }
 
     private void OnTriggerStay(Collider other)
@@ -70,9 +87,9 @@ public class Gatherer : BixinhoBase
 
             // Caso seja a fruta alvo, remove ela do mapa e define o bixinho como inativo (necessário
             // para que ele se mantenha no loop de fazer a ação)
+            OnFruitCollected.Fire();
             currentFruitTarget.RemoveFruit(true);
-            currentFruitTarget = null;
-            activated = false;
+            RemoveCurrentTarget(currentFruitTarget);
         }
     }
 }
