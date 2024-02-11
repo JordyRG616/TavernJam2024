@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AudioManager : ManagerBehaviour
 {
+    [SerializeField] private AudioConfiguration audioConfiguration;
     [field:SerializeField] public AudioChannel musicChannel { get; private set; }
     [SerializeField] private List<AudioClip> musics = new List<AudioClip>();
 
@@ -27,8 +28,21 @@ public class AudioManager : ManagerBehaviour
 
     private void Start()
     {
-        musicChannel.volume = 0;
+        musicChannel.volume = audioConfiguration.musicVolume;
+        SfxChannel.volume = audioConfiguration.sfxVolume;
         PlayMusic = true;
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        audioConfiguration.musicVolume = volume;
+        musicChannel.volume = audioConfiguration.musicVolume;
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        audioConfiguration.sfxVolume = volume;
+        SfxChannel.volume = audioConfiguration.sfxVolume;
     }
 
     private IEnumerator ManageMusicLoop()

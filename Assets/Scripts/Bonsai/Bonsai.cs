@@ -48,7 +48,11 @@ public class Bonsai : ManagerBehaviour
     private int _fertilization;
     public int CurrentFertilization
     {
-        get => _fertilization;
+        get
+        {
+            if (!onFinalPhase) return _fertilization;
+            else return finalFertilization;
+        }
         set
         {
             if (!onFinalPhase)
@@ -61,8 +65,10 @@ public class Bonsai : ManagerBehaviour
                 {
                     LevelUp();
                 }
+
             } else
             {
+                Debug.Log("Registered");
                 finalFertilization = value;
 
                 // OnFertilization.Fire(finalFertilization / (float)finalFertilizationRequired);
