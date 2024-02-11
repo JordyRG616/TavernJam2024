@@ -859,6 +859,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1379131563106690306, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2431216088209666000, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
       propertyPath: m_Name
       value: User Interface
@@ -1018,8 +1022,76 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2448275283599327336, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 515145147}
+    - targetCorrespondingSourceObject: {fileID: 2448275283599327336, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 515145146}
   m_SourcePrefab: {fileID: 100100000, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
+--- !u!1 &515145145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2448275283599327336, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
+  m_PrefabInstance: {fileID: 515145144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &515145146
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515145145}
+  m_Enabled: 1
+  m_Alpha: 0.15
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &515145147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515145145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 515145146}
+          m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+          m_MethodName: set_alpha
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 1
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 515145146}
+          m_TargetAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
+          m_MethodName: set_alpha
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0.15
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &721857272
 GameObject:
   m_ObjectHideFlags: 0
