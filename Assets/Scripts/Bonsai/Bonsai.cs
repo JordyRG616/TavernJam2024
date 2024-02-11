@@ -5,13 +5,13 @@ using UnityEngine;
 public class Bonsai : ManagerBehaviour
 {
     [Header("Signals")]
-    [Tooltip("Sinal disparado quando o bonsai recebe fertilizante. O parametro se refere à porcentagem de fertilizante em relação ao requerido para o próximo level")]
+    [Tooltip("Sinal disparado quando o bonsai recebe fertilizante. O parametro se refere ï¿½ porcentagem de fertilizante em relaï¿½ï¿½o ao requerido para o prï¿½ximo level")]
     public Signal<float> OnFertilization;
     [Tooltip("Sinal disparado quando o bonsai upa de level. O parametro se refere ao level atual do bonsai (depois de upar)")]
     public Signal<int> OnLevelUp;
-    [Tooltip("Sinal disparado quando o bonsai chaga no nível máximo. Não passa parametros")]
+    [Tooltip("Sinal disparado quando o bonsai chaga no nï¿½vel mï¿½ximo. Nï¿½o passa parametros")]
     public Signal OnFinalPhaseEntered;
-    [Tooltip("Sinal disparado quando o jogador vence o jogo. Não passa parametros")]
+    [Tooltip("Sinal disparado quando o jogador vence o jogo. Nï¿½o passa parametros")]
     public Signal OnVictory;
     [Space]
 
@@ -28,7 +28,7 @@ public class Bonsai : ManagerBehaviour
     [SerializeField] private int finalFertilizationRequired;
 
     /// <summary>
-    /// Lista de frutas no chão que não estão no processo de ser coletadas por um cãozinho.
+    /// Lista de frutas no chï¿½o que nï¿½o estï¿½o no processo de ser coletadas por um cï¿½ozinho.
     /// </summary>
     public static List<Fruit> FruitsOnTheGround { get; private set; } = new List<Fruit>();
 
@@ -38,7 +38,7 @@ public class Bonsai : ManagerBehaviour
     private Queue<Fruit> inactiveFruits = new Queue<Fruit>();
 
     /// <summary>
-    /// Pool de possível frutas para se spawnar.
+    /// Pool de possï¿½vel frutas para se spawnar.
     /// </summary>
     private List<Fruit> possibleFruits = new List<Fruit>();
 
@@ -65,7 +65,7 @@ public class Bonsai : ManagerBehaviour
             {
                 finalFertilization = value;
 
-                OnFertilization.Fire(finalFertilization / (float)finalFertilizationRequired);
+                // OnFertilization.Fire(finalFertilization / (float)finalFertilizationRequired);
 
                 if (finalFertilization >= finalFertilizationRequired)
                 {
@@ -105,7 +105,7 @@ public class Bonsai : ManagerBehaviour
     /// <summary>
     /// Atualiza o intervalo entre o spawn de cada fruta.
     /// </summary>
-    /// <param name="value">valor pelo qual o intervalo atual será modificado.</param>
+    /// <param name="value">valor pelo qual o intervalo atual serï¿½ modificado.</param>
     public void ChangeSpawnInterval(float value)
     {
         currentSpawnInterval += value;
@@ -113,7 +113,7 @@ public class Bonsai : ManagerBehaviour
     }
 
     /// <summary>
-    /// Gerencia o spawn de frutas de acordo com o intervalo de ativação atual do bonsai.
+    /// Gerencia o spawn de frutas de acordo com o intervalo de ativaï¿½ï¿½o atual do bonsai.
     /// </summary>
     /// <returns></returns>
     private IEnumerator ManageFruitSpawn()
@@ -127,7 +127,7 @@ public class Bonsai : ManagerBehaviour
     }
 
     /// <summary>
-    /// Cria e lança novas frutas no mapa.
+    /// Cria e lanï¿½a novas frutas no mapa.
     /// </summary>
     /// <param name="amount">Quantidade de frutas a se criar.</param>
     public void SpawnFruits(int amount)
@@ -137,8 +137,8 @@ public class Bonsai : ManagerBehaviour
             Fruit fruit = null;
 
             // Checa se existem frutas inativas na fila. Cria uma nova fruta e registra os callbacks
-            // necessário caso a fila esteja vazia, ou seleciona a próxima fruta na fila e ativa esta
-            // caso contrário.
+            // necessï¿½rio caso a fila esteja vazia, ou seleciona a prï¿½xima fruta na fila e ativa esta
+            // caso contrï¿½rio.
             if (inactiveFruits.Count == 0)
             {
                 var model = possibleFruits[Random.Range(0, possibleFruits.Count)];
@@ -152,7 +152,7 @@ public class Bonsai : ManagerBehaviour
                 fruit.gameObject.SetActive(true);
             }
 
-            // Calcula a direção do arremesso e a uma força aleatória dentro dos limites estabelecidos.
+            // Calcula a direï¿½ï¿½o do arremesso e a uma forï¿½a aleatï¿½ria dentro dos limites estabelecidos.
             var fruitBody = fruit.GetComponent<Rigidbody>();
 
             var angle = Random.Range(0, 360f) * Mathf.Deg2Rad;
@@ -167,7 +167,7 @@ public class Bonsai : ManagerBehaviour
 
     /// <summary>
     /// Retorna uma fruta que tenha sido coletada (ou potencialmente tenha estragado) para a fila de
-    /// frutas inativas e a remove da lista de frutas no chão caso necessário.
+    /// frutas inativas e a remove da lista de frutas no chï¿½o caso necessï¿½rio.
     /// </summary>
     /// <param name="fruit"></param>
     private void ReturnFruit(Fruit fruit)
@@ -183,7 +183,7 @@ public class Bonsai : ManagerBehaviour
     }
 
     /// <summary>
-    /// Atualiza o level, fertilização atual e fertilização necessária para o próximo level, além de
+    /// Atualiza o level, fertilizaï¿½ï¿½o atual e fertilizaï¿½ï¿½o necessï¿½ria para o prï¿½ximo level, alï¿½m de
     /// aplicar os efeitos do novo level.
     /// </summary>
     private void LevelUp()
@@ -199,6 +199,7 @@ public class Bonsai : ManagerBehaviour
         if (Level == maxLevel)
         {
             onFinalPhase = true;
+            FindObjectOfType<UIManager>().FinalFruit();
             OnFinalPhaseEntered.Fire();
             return;
         }
@@ -210,5 +211,18 @@ public class Bonsai : ManagerBehaviour
         OnVictory.Fire();
 
         // IMPLEMENTAR FIM DE JOGO AQUI
+    }
+
+    public float BonsaiBarFillAmount()
+    {
+        if (Level == maxLevel)
+            return 1f;
+        else
+            return (float) CurrentFertilization/currentFertilizationRequired;
+    }
+
+    public float FinalPhaseFillAmount()
+    {
+        return (float) finalFertilization/finalFertilizationRequired;
     }
 }

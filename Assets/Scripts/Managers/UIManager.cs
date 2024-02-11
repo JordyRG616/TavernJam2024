@@ -6,6 +6,10 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Final Fruit")]
+    [SerializeField] GameObject finalFruitObject;
+    [SerializeField] Image finalFruitFill;
+    
     [Header("Textos Na Tela")]
     [SerializeField] TextMeshProUGUI coinsText;
     [SerializeField] TextMeshProUGUI newDogValueText;
@@ -50,14 +54,19 @@ public class UIManager : MonoBehaviour
     int upgradeDogValue;
     int upgradeBullValue;
     int upgradeBunnyValue;
+    bool finalPhase;
 
     private InventoryManager inventory;
     private RanchManager ranch;
+    private Bonsai bonsaiTree;
 
     void Start()
     {
+        finalPhase = false;
+
         inventory = FindObjectOfType<InventoryManager>();
         ranch = FindObjectOfType<RanchManager>();
+        bonsaiTree = FindObjectOfType<Bonsai>();
 
         newDogValue = newDogInicialValue;
         newBullValue = newBullInicialValue;
@@ -79,6 +88,8 @@ public class UIManager : MonoBehaviour
         upgradeBunnyValueText.text = upgradeBunnyValue.ToString();
 
         CheckGoldValue();
+
+        if (finalPhase) FinalFruitFillAmount();
     }
 
     void CheckGoldValue()
@@ -140,5 +151,16 @@ public class UIManager : MonoBehaviour
         inventory.SpendFruits(upgradeBunnyValue);
         ranch.UpgradeRandomBixinho(BixinhoType.Pooper);
         upgradeBunnyValue += upgradeBunnyPlusValue;
+    }
+
+    public void FinalFruit()
+    {
+        finalFruitObject.SetActive(true);
+        finalPhase = true;
+    }
+
+    void FinalFruitFillAmount()
+    {
+        finalFruitFill.fillAmount = bonsaiTree.FinalPhaseFillAmount();
     }
 }
