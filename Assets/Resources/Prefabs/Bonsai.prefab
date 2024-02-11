@@ -480,8 +480,8 @@ MonoBehaviour:
   fruitYeetForceRange: {x: 250, y: 350}
   spawnInterval: 9
   spawnIntervalLimit: 0.1
-  initialFertilizationRequired: 3
-  finalFertilizationRequired: 5
+  initialFertilizationRequired: 15
+  finalFertilizationRequired: 100
 --- !u!114 &7525070940570272454
 MonoBehaviour:
   m_ObjectHideFlags: 0

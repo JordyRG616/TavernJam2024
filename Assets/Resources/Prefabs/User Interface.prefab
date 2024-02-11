@@ -731,16 +731,16 @@ MonoBehaviour:
   bunnyPrefab: {fileID: 7668737448525791846, guid: 1ed29fd0f77d1d54bb252325bdcfc100, type: 3}
   newDogInicialValue: 20
   newBullInicialValue: 50
-  newBunnyInicialValue: 60
+  newBunnyInicialValue: 100
   upgradeDogInicialValue: 60
-  upgradeBullInicialValue: 60
-  upgradeBunnyInicialValue: 60
-  newDogPlusValue: 10
-  newBullPlusValue: 10
-  newBunnyPlusValue: 10
-  upgradeDogPlusValue: 5
-  upgradeBullPlusValue: 5
-  upgradeBunnyPlusValue: 5
+  upgradeBullInicialValue: 90
+  upgradeBunnyInicialValue: 120
+  newDogPlusValue: 15
+  newBullPlusValue: 30
+  newBunnyPlusValue: 50
+  upgradeDogPlusValue: 20
+  upgradeBullPlusValue: 30
+  upgradeBunnyPlusValue: 60
 --- !u!1 &2993322158107405009
 GameObject:
   m_ObjectHideFlags: 0

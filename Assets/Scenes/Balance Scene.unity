@@ -586,42 +586,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: newDogPlusValue
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: newBullPlusValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: newBunnyPlusValue
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: upgradeDogPlusValue
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: newBunnyInicialValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: upgradeBullPlusValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: upgradeBunnyPlusValue
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: upgradeBullInicialValue
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7617907048285835729, guid: 7b3d5776f6ed1bd4783e8ebd0ca4de03, type: 3}
-      propertyPath: upgradeBunnyInicialValue
-      value: 120
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
