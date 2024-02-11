@@ -5,20 +5,32 @@ using UnityEngine;
 
 public abstract class BixinhoBase : MonoBehaviour
 {
+    [Header("Bixinho Signals")]
+    public Signal OnLevelUp;
+    public Signal OnSpawn;
+
     [SerializeField] protected float activationInterval;
+    [field:SerializeField] public BixinhoType type { get; protected set; }
+
+    public int Level { get; protected set; }
+    protected int maxLevel = 4;
+    public bool IsMaxLevel => Level == maxLevel;
 
     protected NavMeshAgent NavigationAgent { get; private set; }
 
     protected bool activated;
     protected WaitForSeconds waitActivationInterval;
-
+    
 
     protected virtual void Start()
     {
-        NavigationAgent = GetComponent<NavMeshAgent>();
+        GameMaster.GetManager<RanchManager>().RegisterBixinho(this);
 
+        NavigationAgent = GetComponent<NavMeshAgent>();
         waitActivationInterval = new WaitForSeconds(activationInterval);
         StartCoroutine(ManageActivation());
+
+        OnSpawn.Fire();
     }
 
     /// <summary>
@@ -41,8 +53,18 @@ public abstract class BixinhoBase : MonoBehaviour
         }
     }
 
+    public virtual void LevelUp()
+    {
+        if (Level == maxLevel) return;
+
+        OnLevelUp.Fire();
+        Level++;
+    }
+
     /// <summary>
     /// A ação que o bixinho vai realizar sempre que for ativado.
     /// </summary>
     protected abstract void Activate();
 }
+
+public enum BixinhoType { Gatherer, Headbanger, Pooper}

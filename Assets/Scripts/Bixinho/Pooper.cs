@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class Pooper : BixinhoBase
 {
-    [SerializeField] private int fertilizationAmount;
+    [Header("Pooper Signals")]
+    public Signal OnPoop;
+
+    [SerializeField] private List<float> intervalByLevel;
+    [SerializeField] private GameObject poopModel;
     [SerializeField] private float poopDuration = 1f;
-    private Bonsai bonsai;
-    private WaitForSeconds waitToChangeDestination = new WaitForSeconds(1.5f);
+    [SerializeField] private float stepSize;
+    [SerializeField] private Animator animator;
+    private WaitForSeconds waitIncrement = new WaitForSeconds(0.01f);
     private WaitForSeconds waitForPoopDuration;
 
     protected override void Start()
     {
         base.Start();
 
-        bonsai = GameMaster.GetManager<Bonsai>();
+        waitActivationInterval = new WaitForSeconds(intervalByLevel[0]);
         waitForPoopDuration = new WaitForSeconds(poopDuration);
         StartCoroutine(HandleMovement());
     }
@@ -24,34 +29,59 @@ public class Pooper : BixinhoBase
         StartCoroutine(HandleActivation());
     }
 
+    public override void LevelUp()
+    {
+        base.LevelUp();
+
+        waitActivationInterval = new WaitForSeconds(intervalByLevel[Level]);
+    }
+
     private IEnumerator HandleActivation()
     {
         // Aumenta a fertilização do bonsai e desativa o agente de navegação, parando o boneco.
-        bonsai.CurrentFertilization += fertilizationAmount;
         NavigationAgent.isStopped = true;
+        animator.SetBool("Pooping", true);
 
         yield return waitForPoopDuration;
-        
+
+        DropADeuce();
+
         // Depois da cagada, ativa o agente de navegação e define o bixinho como inativo (necessário
         // para que ele se mantenha no loop de fazer a ação).
         activated = false;
         NavigationAgent.isStopped = false;
+        animator.SetBool("Pooping", false);
     }
 
-    /// <summary>
-    /// Define pontos aleatorios de movimento em intervalos definidos. É completamente placeholder.
-    /// </summary>
-    /// <returns></returns>
+    private void DropADeuce()
+    {
+        OnPoop.Fire();
+        Instantiate(poopModel, transform.position, Quaternion.identity);
+    }
+
+    public void DoStep()
+    {
+        StopCoroutine(HandleMovement());
+        StartCoroutine(HandleMovement());
+    }
+
     private IEnumerator HandleMovement()
     {
-        while(true)
+        var step = 0f;
+        Vector3 rdm = Random.insideUnitCircle.normalized;
+        rdm = new Vector3(rdm.x, 0, rdm.y);
+        rdm += transform.forward * stepSize;
+
+        NavigationAgent.SetDestination(rdm);
+
+        while(step < 1)
         {
-            Vector3 rdm = Random.insideUnitCircle.normalized * 5.5f;
-            rdm = new Vector3(rdm.x, 0, rdm.y);
+            var speed = Mathf.Lerp(1.5f, 0, step);
+            NavigationAgent.speed = speed;
 
-            NavigationAgent.SetDestination(rdm);
+            step += 0.02f;
 
-            yield return waitToChangeDestination;
+            yield return waitIncrement;
         }
     }
 }
