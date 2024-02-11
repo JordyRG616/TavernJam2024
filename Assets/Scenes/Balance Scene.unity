@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f8c70b30543e24da66b1795f7f134d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioConfiguration: {fileID: 0}
   <musicChannel>k__BackingField:
     source: {fileID: 1662015909}
     musicChannel: 1
@@ -1706,7 +1707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612a24881ee7a854c9116cf2051ed823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFruitAmount: 7000
+  initialFruitAmount: 70
 --- !u!4 &2111794774
 Transform:
   m_ObjectHideFlags: 0
