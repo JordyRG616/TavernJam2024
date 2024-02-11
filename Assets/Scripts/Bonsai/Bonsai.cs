@@ -211,6 +211,7 @@ public class Bonsai : ManagerBehaviour
         OnVictory.Fire();
 
         // IMPLEMENTAR FIM DE JOGO AQUI
+        spawnInterval = 0.25f;
     }
 
     public float BonsaiBarFillAmount()

@@ -98,9 +98,9 @@ public class UIManager : MonoBehaviour
         newBullButton.interactable = inventory.HasEnoughFruits(newBullValue);
         newBunnyButton.interactable = inventory.HasEnoughFruits(newBunnyValue);
 
-        upgradeDogObject.SetActive(inventory.HasEnoughFruits(upgradeDogValue));
-        upgradeBullObject.SetActive(inventory.HasEnoughFruits(upgradeBullValue));
-        upgradeBunnyObject.SetActive(inventory.HasEnoughFruits(upgradeBunnyValue));
+        upgradeDogObject.SetActive(inventory.HasEnoughFruits(upgradeDogValue) && (ranch.GetBixinhoAmount(BixinhoType.Gatherer) > 0));
+        upgradeBullObject.SetActive(inventory.HasEnoughFruits(upgradeBullValue) && (ranch.GetBixinhoAmount(BixinhoType.Headbanger) > 0));
+        upgradeBunnyObject.SetActive(inventory.HasEnoughFruits(upgradeBunnyValue) && (ranch.GetBixinhoAmount(BixinhoType.Pooper) > 0));
     }
 
     // Funções das compras dos botões
