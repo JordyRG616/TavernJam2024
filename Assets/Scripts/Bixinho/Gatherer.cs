@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Gatherer : BixinhoBase
 {
+    [Header("Gatherer Signals")]
+    public Signal OnFruitSpotted;
+    public Signal OnFruitCollected;
+
     [SerializeField] private List<float> speedByLevel;
+    [SerializeField] private Animator animator;
     private Fruit currentFruitTarget;
 
 
@@ -19,7 +24,7 @@ public class Gatherer : BixinhoBase
     {
         while (true)
         {
-            // Espera atï¿½ que hajam frutas no chï¿½o para ativar.
+            // Espera até que hajam frutas no chão para ativar.
             yield return new WaitUntil(() => SetTargetedFruit());
 
             Activate();
@@ -31,9 +36,10 @@ public class Gatherer : BixinhoBase
 
     protected override void Activate()
     {
-        // Define como destino a posiï¿½ï¿½o da fruta-alvo.
+        // Define como destino a posição da fruta-alvo.
         var position = currentFruitTarget.transform.position;
         NavigationAgent.SetDestination(position);
+        animator.SetBool("Walking", true);
     }
 
     public override void LevelUp()
@@ -44,9 +50,9 @@ public class Gatherer : BixinhoBase
     }
 
     /// <summary>
-    /// Verifica se existe alguma fruta no chï¿½o e, caso verdadeiro, escolhe uma como alvo.
+    /// Verifica se existe alguma fruta no chão e, caso verdadeiro, escolhe uma como alvo.
     /// </summary>
-    /// <returns>Se hï¿½ frutas no chï¿½o.</returns>
+    /// <returns>Se há frutas no chão.</returns>
     private bool SetTargetedFruit()
     {
         var fruits = Bonsai.FruitsOnTheGround;
@@ -57,22 +63,33 @@ public class Gatherer : BixinhoBase
         {
             currentFruitTarget = fruits[Random.Range(0, fruits.Count)];
             Bonsai.FruitsOnTheGround.Remove(currentFruitTarget);
+            currentFruitTarget.OnDespawn += RemoveCurrentTarget;
+            OnFruitSpotted.Fire();
             return true;
         }
+    }
+
+    private void RemoveCurrentTarget(Fruit fruit)
+    {
+        Debug.Log(currentFruitTarget);
+        currentFruitTarget.OnDespawn -= RemoveCurrentTarget;
+        activated = false;
+        NavigationAgent.SetDestination(transform.position);
+        animator.SetBool("Walking", false);
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.attachedRigidbody.TryGetComponent<Fruit>(out var fruit) && activated)
         {
-            // Caso a fruta encontrada nï¿½o seja a fruta alvo, retorne.
+            // Caso a fruta encontrada não seja a fruta alvo, retorne.
             if (fruit != currentFruitTarget) return;
 
-            // Caso seja a fruta alvo, remove ela do mapa e define o bixinho como inativo (necessï¿½rio
-            // para que ele se mantenha no loop de fazer a aï¿½ï¿½o)
+            // Caso seja a fruta alvo, remove ela do mapa e define o bixinho como inativo (necessário
+            // para que ele se mantenha no loop de fazer a ação)
+            OnFruitCollected.Fire();
             currentFruitTarget.RemoveFruit(true);
-            currentFruitTarget = null;
-            activated = false;
+            RemoveCurrentTarget(currentFruitTarget);
         }
     }
 }

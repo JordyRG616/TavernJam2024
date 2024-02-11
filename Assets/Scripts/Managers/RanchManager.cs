@@ -10,12 +10,10 @@ public class RanchManager : ManagerBehaviour
     public void RegisterBixinho(BixinhoBase bixinho)
     {
         List<BixinhoBase> list = null;
-
         if (BixinhosByType.ContainsKey(bixinho.type))
         {
             list = BixinhosByType[bixinho.type];
-        }
-        else
+        } else
         {
             list = new List<BixinhoBase>();
             BixinhosByType.Add(bixinho.type, list);

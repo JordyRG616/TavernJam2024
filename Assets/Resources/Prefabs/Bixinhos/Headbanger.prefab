@@ -210,6 +210,7 @@ MonoBehaviour:
   retreatDistance: 5.5
   chargeSpeed: 7
   retreatSpeed: 2
+  animator: {fileID: 2970937595541187516}
 --- !u!1001 &5309996771878351421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,9 +283,69 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -3932181188706853763, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 30.431814
+      objectReference: {fileID: 0}
+    - target: {fileID: -3932181188706853763, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -6.122698
+      objectReference: {fileID: 0}
+    - target: {fileID: -3932181188706853763, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -22.248198
+      objectReference: {fileID: 0}
+    - target: {fileID: -1036117832489949852, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 36.337986
+      objectReference: {fileID: 0}
+    - target: {fileID: -1036117832489949852, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -3.069832
+      objectReference: {fileID: 0}
+    - target: {fileID: -1036117832489949852, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -10.582801
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
       propertyPath: m_Name
       value: bull
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575467167430883104, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -33.321968
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575467167430883104, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.2024307
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575467167430883104, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -7.9052243
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890257973448788102, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.000015123321
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890257973448788102, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.000016279602
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890257973448788102, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 30.032606
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108020500230453851, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -29.79359
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108020500230453851, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 6.2072387
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108020500230453851, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -21.759089
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -293,6 +354,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2970937595541187516}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5311066874403326899}
   m_SourcePrefab: {fileID: 100100000, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}
 --- !u!1 &5003934866791370604 stripped
 GameObject:
@@ -320,6 +384,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5311066874403326899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003934866791370604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9dfc5927d80f1468108d4dd384d72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEventFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1124890760150919468}
+        m_TargetAssemblyTypeName: Headbanger, Assembly-CSharp
+        m_MethodName: Release
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &5636919671329052118 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 850cb97b6f35a3a4081638e4ee1cb149, type: 3}

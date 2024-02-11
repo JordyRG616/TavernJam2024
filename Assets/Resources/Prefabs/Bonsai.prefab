@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7808093447749635284}
   - component: {fileID: 2244641056531448011}
   m_Layer: 7
-  m_Name: Visual
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,9 +192,10 @@ MonoBehaviour:
   - {fileID: 5250529592624373620, guid: 60f827684a6919f418e24a67611f538d, type: 3}
   fruitYeetPoint: {fileID: 2912829197271984550}
   fruitYeetForceRange: {x: 250, y: 350}
-  spawnInterval: 5
+  spawnInterval: 9
   spawnIntervalLimit: 0.1
   initialFertilizationRequired: 5
+  finalFertilizationRequired: 150
 --- !u!114 &7525070940570272454
 MonoBehaviour:
   m_ObjectHideFlags: 0

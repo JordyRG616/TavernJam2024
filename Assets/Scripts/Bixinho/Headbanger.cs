@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Headbanger : BixinhoBase
 {
+    [Header("Headbanger Signals")]
+    public Signal OnChargeStarted;
+    public Signal OnTreeHit;
+
     [SerializeField] private List<int> fruitsPerLevel;
     [SerializeField] private float retreatDistance;
     [Space]
     [SerializeField] private float chargeSpeed;
     [SerializeField] private float retreatSpeed;
+    [Space]
+    [SerializeField] private Animator animator;
 
     private Bonsai bonsai;
     private int fruitAmount;
@@ -25,6 +31,13 @@ public class Headbanger : BixinhoBase
     protected override void Activate()
     {
         // Muda a velocidade máxima do bixinho durante a investida.
+        //NavigationAgent.speed = 0;
+        animator.SetBool("Charging", true);
+    }
+
+    public void Release()
+    {
+        OnChargeStarted.Fire();
         NavigationAgent.speed = chargeSpeed;
         NavigationAgent.SetDestination(bonsai.transform.position);
     }
@@ -42,8 +55,10 @@ public class Headbanger : BixinhoBase
         {
             // Derruba a quantidade correspondente de frutas e define o bixinho como inativo (necessário
             // para que ele se mantenha no loop de fazer a ação).
+            OnTreeHit.Fire();
             bonsai.SpawnFruits(fruitAmount);
             activated = false;
+            animator.SetBool("Charging", false);
 
             // Muda a velocidade máxima do bixinho de volta para a velocidade de caminhada e define a 
             // direção para onde ele vai recuar.

@@ -9,6 +9,7 @@ public abstract class Fruit : MonoBehaviour
     public Signal OnGroundHit;
     [Tooltip("Sinal disparado quando a fruta é coletado ou estraga. O parametro se refere a própria fruta.")]
     public Signal<Fruit> OnDespawn;
+    public Signal OnSpawn;
     [Space]
     [SerializeField] private int fruitValue;
     [SerializeField] private float decayTime;
@@ -20,6 +21,8 @@ public abstract class Fruit : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         waitToDecay = new WaitForSeconds(decayTime);
+
+        OnSpawn.Fire();
     }
 
     private IEnumerator Decay()

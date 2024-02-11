@@ -5,11 +5,15 @@ using UnityEngine;
 
 public abstract class BixinhoBase : MonoBehaviour
 {
+    [Header("Bixinho Signals")]
+    public Signal OnLevelUp;
+    public Signal OnSpawn;
+
     [SerializeField] protected float activationInterval;
     [field:SerializeField] public BixinhoType type { get; protected set; }
 
     public int Level { get; protected set; }
-    protected int maxLevel;
+    protected int maxLevel = 4;
     public bool IsMaxLevel => Level == maxLevel;
 
     protected NavMeshAgent NavigationAgent { get; private set; }
@@ -23,9 +27,10 @@ public abstract class BixinhoBase : MonoBehaviour
         GameMaster.GetManager<RanchManager>().RegisterBixinho(this);
 
         NavigationAgent = GetComponent<NavMeshAgent>();
-
         waitActivationInterval = new WaitForSeconds(activationInterval);
         StartCoroutine(ManageActivation());
+
+        OnSpawn.Fire();
     }
 
     /// <summary>
@@ -52,6 +57,7 @@ public abstract class BixinhoBase : MonoBehaviour
     {
         if (Level == maxLevel) return;
 
+        OnLevelUp.Fire();
         Level++;
     }
 
