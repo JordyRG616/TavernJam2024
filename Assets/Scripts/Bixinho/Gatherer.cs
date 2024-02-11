@@ -19,7 +19,7 @@ public class Gatherer : BixinhoBase
     {
         while (true)
         {
-            // Espera até que hajam frutas no chão para ativar.
+            // Espera atï¿½ que hajam frutas no chï¿½o para ativar.
             yield return new WaitUntil(() => SetTargetedFruit());
 
             Activate();
@@ -31,7 +31,7 @@ public class Gatherer : BixinhoBase
 
     protected override void Activate()
     {
-        // Define como destino a posição da fruta-alvo.
+        // Define como destino a posiï¿½ï¿½o da fruta-alvo.
         var position = currentFruitTarget.transform.position;
         NavigationAgent.SetDestination(position);
     }
@@ -44,9 +44,9 @@ public class Gatherer : BixinhoBase
     }
 
     /// <summary>
-    /// Verifica se existe alguma fruta no chão e, caso verdadeiro, escolhe uma como alvo.
+    /// Verifica se existe alguma fruta no chï¿½o e, caso verdadeiro, escolhe uma como alvo.
     /// </summary>
-    /// <returns>Se há frutas no chão.</returns>
+    /// <returns>Se hï¿½ frutas no chï¿½o.</returns>
     private bool SetTargetedFruit()
     {
         var fruits = Bonsai.FruitsOnTheGround;
@@ -65,11 +65,11 @@ public class Gatherer : BixinhoBase
     {
         if (other.attachedRigidbody.TryGetComponent<Fruit>(out var fruit) && activated)
         {
-            // Caso a fruta encontrada não seja a fruta alvo, retorne.
+            // Caso a fruta encontrada nï¿½o seja a fruta alvo, retorne.
             if (fruit != currentFruitTarget) return;
 
-            // Caso seja a fruta alvo, remove ela do mapa e define o bixinho como inativo (necessário
-            // para que ele se mantenha no loop de fazer a ação)
+            // Caso seja a fruta alvo, remove ela do mapa e define o bixinho como inativo (necessï¿½rio
+            // para que ele se mantenha no loop de fazer a aï¿½ï¿½o)
             currentFruitTarget.RemoveFruit(true);
             currentFruitTarget = null;
             activated = false;

@@ -7,8 +7,16 @@ public class InventoryManager : ManagerBehaviour
     [Header("Signals")]
     public Signal<int> OnFruitsGained;
     public Signal<int> OnFruitsSpended;
+    
+    [Header("Gold Parameters")]
+    public int inicialValue;
 
     public int FruitAmount { get; private set; }
+
+    void Start()
+    {
+        FruitAmount = inicialValue;
+    }
 
 
     public bool HasEnoughFruits(int amount)

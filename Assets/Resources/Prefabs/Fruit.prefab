@@ -178,5 +178,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42017a9e7f6a07c4fad24730c87b0286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitValue: 1
+  fruitValue: 10
   decayTime: 6
