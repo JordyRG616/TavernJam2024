@@ -29,7 +29,10 @@ public abstract class BixinhoBase : MonoBehaviour
         NavigationAgent = GetComponent<NavMeshAgent>();
         waitActivationInterval = new WaitForSeconds(activationInterval);
         StartCoroutine(ManageActivation());
+    }
 
+    private void OnEnable()
+    {
         OnSpawn.Fire();
     }
 

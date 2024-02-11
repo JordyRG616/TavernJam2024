@@ -21,7 +21,10 @@ public abstract class Fruit : MonoBehaviour
     {
         body = GetComponent<Rigidbody>();
         waitToDecay = new WaitForSeconds(decayTime);
+    }
 
+    private void OnEnable()
+    {
         OnSpawn.Fire();
     }
 
